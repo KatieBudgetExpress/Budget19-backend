@@ -8,6 +8,7 @@ const SousPosteBudgetaire = require(
 const Transaction = require("./Transaction");
 const Profil = require("../modules/profils/profil.model");
 const ActionSysteme = require("../modules/actions-systeme/actionSysteme.model");
+const Regle = require("../modules/regles/regle.model");
 const Bank = require("../modules/banques/banque.model");
 const BanqueCompte = require("../modules/banque-comptes/banqueCompte.model");
 const Banque = Bank;
@@ -93,6 +94,22 @@ BanqueCompte.belongsTo(Bank, {
   as: "bank"
 });
 
+ActionSysteme.hasMany(Regle, {
+  foreignKey: {
+    name: "actionSystemeId",
+    allowNull: false
+  },
+  as: "regles",
+  onDelete: "CASCADE"
+});
+Regle.belongsTo(ActionSysteme, {
+  foreignKey: {
+    name: "actionSystemeId",
+    allowNull: false
+  },
+  as: "actionSysteme"
+});
+
 const Category = PosteBudgetaire;
 const SubCategory = SousPosteBudgetaire;
 
@@ -104,6 +121,7 @@ module.exports = {
   Transaction,
   Profil,
   ActionSysteme,
+  Regle,
   Bank,
   Banque,
   BanqueCompte,

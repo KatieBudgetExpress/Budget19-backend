@@ -10,6 +10,7 @@ const sousPosteBudgetaireRouter = require(
 const actionsSystemeRouter = require(
   "./modules/actions-systeme/actionSysteme.routes"
 );
+const reglesRouter = require("./modules/regles/regle.routes");
 const transactionsRouter = require("./routes/transactions.routes");
 const profilsRouter = require("./modules/profils/profil.routes");
 const banquesRouter = require("./modules/banques/banque.routes"); // ✅ ajout Banque
@@ -40,6 +41,7 @@ function createApp() {
   app.use("/api/categories", posteBudgetaireRouter);
   app.use("/api/sous-postes-budgetaires", sousPosteBudgetaireRouter);
   app.use("/api/actions-systeme", actionsSystemeRouter);
+  app.use("/api/regles", reglesRouter);
   app.use("/api/transactions", transactionsRouter);
   app.use("/api/profils", profilsRouter);
   app.use("/api/banques", banquesRouter); // ✅ route Banque
