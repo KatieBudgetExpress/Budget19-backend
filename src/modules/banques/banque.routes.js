@@ -1,18 +1,24 @@
 const { Router } = require("express");
 const { body, param } = require("express-validator");
-const banqueController = require("./banque.controller");
+const {
+  listBanques,
+  getBanque,
+  createBanque,
+  updateBanque,
+  deleteBanque
+} = require("./banque.controller");
 const asyncHandler = require("../../utils/asyncHandler");
 const validate = require("../../middlewares/validate");
 
 const router = Router();
 
-router.get("/", asyncHandler(banqueController.listBanques));
+router.get("/", asyncHandler(listBanques));
 
 router.get(
   "/:id",
   param("id").isInt().toInt(),
   validate,
-  asyncHandler(banqueController.getBanque)
+  asyncHandler(getBanque)
 );
 
 router.post(
@@ -21,7 +27,7 @@ router.post(
   body("institution").isString().trim().notEmpty(),
   body("swiftCode").optional().isString().trim(),
   validate,
-  asyncHandler(banqueController.createBanque)
+  asyncHandler(createBanque)
 );
 
 router.put(
@@ -31,14 +37,14 @@ router.put(
   body("institution").optional().isString().trim().notEmpty(),
   body("swiftCode").optional().isString().trim(),
   validate,
-  asyncHandler(banqueController.updateBanque)
+  asyncHandler(updateBanque)
 );
 
 router.delete(
   "/:id",
   param("id").isInt().toInt(),
   validate,
-  asyncHandler(banqueController.deleteBanque)
+  asyncHandler(deleteBanque)
 );
 
 module.exports = router;
