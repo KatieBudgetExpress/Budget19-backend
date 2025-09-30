@@ -11,6 +11,7 @@ const ActionSysteme = require("../modules/actions-systeme/actionSysteme.model");
 const Bank = require("../modules/banques/banque.model");
 const BanqueCompte = require("../modules/banque-comptes/banqueCompte.model");
 const Banque = Bank;
+const ImportFile = require("../modules/import-files/importFile.model");
 
 Budget.hasMany(PosteBudgetaire, {
   foreignKey: {
@@ -105,5 +106,6 @@ module.exports = {
   ActionSysteme,
   Bank,
   Banque,
-  BanqueCompte
+  BanqueCompte,
+  ImportFile
 };

@@ -16,6 +16,7 @@ const banquesRouter = require("./modules/banques/banque.routes"); // ✅ ajout B
 const banqueComptesRouter = require(
   "./modules/banque-comptes/banqueCompte.routes"
 );
+const importFilesRouter = require("./routes/importFile.routes");
 const HttpError = require("./utils/httpError");
 
 function createApp() {
@@ -43,6 +44,7 @@ function createApp() {
   app.use("/api/profils", profilsRouter);
   app.use("/api/banques", banquesRouter); // ✅ route Banque
   app.use("/api/banque-comptes", banqueComptesRouter);
+  app.use("/api/import-files", importFilesRouter);
 
   // Gestion 404
   app.use((req, res, next) => {
