@@ -9,6 +9,7 @@ const Transaction = require("./Transaction");
 const Usager = require("./Usager");
 const ActionSysteme = require("../modules/actions-systeme/actionSysteme.model");
 const Bank = require("../modules/banques/banque.model");
+const BanqueCompte = require("../modules/banque-comptes/banqueCompte.model");
 const Banque = Bank;
 
 Budget.hasMany(PosteBudgetaire, {
@@ -75,6 +76,22 @@ Transaction.belongsTo(PosteBudgetaire, {
   as: "category"
 });
 
+Bank.hasMany(BanqueCompte, {
+  foreignKey: {
+    name: "bankId",
+    allowNull: false
+  },
+  as: "accounts",
+  onDelete: "CASCADE"
+});
+BanqueCompte.belongsTo(Bank, {
+  foreignKey: {
+    name: "bankId",
+    allowNull: false
+  },
+  as: "bank"
+});
+
 const Category = PosteBudgetaire;
 const SubCategory = SousPosteBudgetaire;
 
@@ -87,5 +104,6 @@ module.exports = {
   Usager,
   ActionSysteme,
   Bank,
-  Banque
+  Banque,
+  BanqueCompte
 };

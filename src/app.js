@@ -13,6 +13,9 @@ const actionsSystemeRouter = require(
 const transactionsRouter = require("./routes/transactions.routes");
 const usagersRouter = require("./routes/usagers.routes");
 const banquesRouter = require("./modules/banques/banque.routes"); // ✅ ajout Banque
+const banqueComptesRouter = require(
+  "./modules/banque-comptes/banqueCompte.routes"
+);
 const HttpError = require("./utils/httpError");
 
 function createApp() {
@@ -39,6 +42,7 @@ function createApp() {
   app.use("/api/transactions", transactionsRouter);
   app.use("/api/usagers", usagersRouter);
   app.use("/api/banques", banquesRouter); // ✅ route Banque
+  app.use("/api/banque-comptes", banqueComptesRouter);
 
   // Gestion 404
   app.use((req, res, next) => {
