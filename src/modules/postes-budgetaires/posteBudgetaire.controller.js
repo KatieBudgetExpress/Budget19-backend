@@ -4,6 +4,7 @@ const {
   Transaction,
   SousPosteBudgetaire
 } = require("../../models");
+const { Op } = require("sequelize");
 const HttpError = require("../../utils/httpError");
 
 async function listCategories(req, res) {
@@ -67,7 +68,25 @@ async function updateCategory(req, res) {
 
   const updateData = {};
   if (name !== undefined) updateData.name = name;
-  if (type !== undefined) updateData.type = type;
+  if (type !== undefined) {
+    if (type !== category.type) {
+      const conflictingTransactions = await Transaction.count({
+        where: {
+          categoryId: category.id,
+          type: { [Op.ne]: type }
+        }
+      });
+
+      if (conflictingTransactions > 0) {
+        throw new HttpError(
+          409,
+          "Cannot change category type due to existing transactions"
+        );
+      }
+    }
+
+    updateData.type = type;
+  }
   if (budgetId !== undefined) updateData.budgetId = budgetId;
 
   await category.update(updateData);
