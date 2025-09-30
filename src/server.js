@@ -1,5 +1,6 @@
 const { createApp } = require("./app");
 const { sequelize, testConnection } = require("./config/database");
+require("./models");
 
 async function startServer() {
   try {
