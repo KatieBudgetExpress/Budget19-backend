@@ -1,8 +1,8 @@
 const { Router } = require("express");
 const { body, param } = require("express-validator");
-const budgetsController = require("../controllers/budgets.controller");
-const asyncHandler = require("../utils/asyncHandler");
-const validate = require("../middlewares/validate");
+const budgetsController = require("./budget.controller");
+const asyncHandler = require("../../utils/asyncHandler");
+const validate = require("../../middlewares/validate");
 
 const router = Router();
 
