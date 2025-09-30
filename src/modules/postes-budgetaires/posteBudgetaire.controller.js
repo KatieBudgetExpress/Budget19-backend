@@ -1,11 +1,17 @@
-const { Budget, Category, Transaction } = require("../../models");
+const {
+  Budget,
+  Category,
+  Transaction,
+  SousPosteBudgetaire
+} = require("../../models");
 const HttpError = require("../../utils/httpError");
 
 async function listCategories(req, res) {
   const categories = await Category.findAll({
     include: [
       { model: Budget, as: "budget" },
-      { model: Transaction, as: "transactions" }
+      { model: Transaction, as: "transactions" },
+      { model: SousPosteBudgetaire, as: "subCategories" }
     ],
     order: [["createdAt", "DESC"]]
   });
@@ -18,7 +24,8 @@ async function getCategory(req, res) {
   const category = await Category.findByPk(id, {
     include: [
       { model: Budget, as: "budget" },
-      { model: Transaction, as: "transactions" }
+      { model: Transaction, as: "transactions" },
+      { model: SousPosteBudgetaire, as: "subCategories" }
     ]
   });
 

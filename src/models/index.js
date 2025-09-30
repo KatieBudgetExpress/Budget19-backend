@@ -2,6 +2,9 @@ const Budget = require("../modules/budgets/budget.model");
 const PosteBudgetaire = require(
   "../modules/postes-budgetaires/posteBudgetaire.model"
 );
+const SousPosteBudgetaire = require(
+  "../modules/sous-postes-budgetaires/sousPosteBudgetaire.model"
+);
 const Transaction = require("./Transaction");
 const Usager = require("./Usager");
 
@@ -19,6 +22,22 @@ PosteBudgetaire.belongsTo(Budget, {
     allowNull: false
   },
   as: "budget"
+});
+
+PosteBudgetaire.hasMany(SousPosteBudgetaire, {
+  foreignKey: {
+    name: "categoryId",
+    allowNull: false
+  },
+  as: "subCategories",
+  onDelete: "CASCADE"
+});
+SousPosteBudgetaire.belongsTo(PosteBudgetaire, {
+  foreignKey: {
+    name: "categoryId",
+    allowNull: false
+  },
+  as: "category"
 });
 
 Budget.hasMany(Transaction, {
@@ -54,10 +73,13 @@ Transaction.belongsTo(PosteBudgetaire, {
 });
 
 const Category = PosteBudgetaire;
+const SubCategory = SousPosteBudgetaire;
 
 module.exports = {
   Budget,
   Category,
+  SousPosteBudgetaire,
+  SubCategory,
   Transaction,
   Usager
 };
