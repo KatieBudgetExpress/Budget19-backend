@@ -65,6 +65,55 @@ test("POST /api/banque-comptes crée un compte bancaire lié à une banque", asy
   assert.equal(response.body.data.bank.id, bank.id);
 });
 
+test(
+  "POST /api/banque-comptes et PUT /api/banque-comptes/:id refusent les doublons d'accountNumber",
+  async () => {
+    const bank = await Bank.create({
+      name: "Banque Doublons",
+      institution: "Institution Doublons",
+      accountNumber: "BANK-DUP"
+    });
+
+    const existingAccount = await BanqueCompte.create({
+      name: "Compte Initial",
+      accountNumber: "ACC-DUP",
+      bankId: bank.id
+    });
+
+    const duplicateCreateResponse = await request(app)
+      .post("/api/banque-comptes")
+      .send({
+        name: "Compte En Double",
+        accountNumber: "ACC-DUP",
+        bankId: bank.id
+      })
+      .expect(409);
+
+    assert.equal(
+      duplicateCreateResponse.body.error.message,
+      "Account number already exists"
+    );
+
+    const otherAccount = await BanqueCompte.create({
+      name: "Compte Secondaire",
+      accountNumber: "ACC-OTHER",
+      bankId: bank.id
+    });
+
+    const duplicateUpdateResponse = await request(app)
+      .put(`/api/banque-comptes/${otherAccount.id}`)
+      .send({
+        accountNumber: "ACC-DUP"
+      })
+      .expect(409);
+
+    assert.equal(
+      duplicateUpdateResponse.body.error.message,
+      "Account number already exists"
+    );
+  }
+);
+
 test("GET /api/banque-comptes retourne la liste des comptes", async () => {
   const bank = await Bank.create({
     name: "Banque Liste",

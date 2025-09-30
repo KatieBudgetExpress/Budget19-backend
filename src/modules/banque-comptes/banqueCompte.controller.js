@@ -42,6 +42,16 @@ async function createBanqueCompte(req, res) {
     throw new HttpError(404, "Bank not found");
   }
 
+  if (accountNumber !== undefined) {
+    const existingAccount = await BanqueCompte.findOne({
+      where: { accountNumber }
+    });
+
+    if (existingAccount) {
+      throw new HttpError(409, "Account number already exists");
+    }
+  }
+
   const account = await BanqueCompte.create({
     name,
     accountNumber,
@@ -77,6 +87,16 @@ async function updateBanqueCompte(req, res) {
 
     if (!bank) {
       throw new HttpError(404, "Bank not found");
+    }
+  }
+
+  if (accountNumber !== undefined) {
+    const existingAccount = await BanqueCompte.findOne({
+      where: { accountNumber }
+    });
+
+    if (existingAccount && existingAccount.id !== account.id) {
+      throw new HttpError(409, "Account number already exists");
     }
   }
 
