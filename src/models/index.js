@@ -8,6 +8,7 @@ const SousPosteBudgetaire = require(
 const Transaction = require("./Transaction");
 const Usager = require("./Usager");
 const ActionSysteme = require("../modules/actions-systeme/actionSysteme.model");
+const Bank = require("../modules/banques/banque.model");
 
 Budget.hasMany(PosteBudgetaire, {
   foreignKey: {
@@ -83,5 +84,6 @@ module.exports = {
   SubCategory,
   Transaction,
   Usager,
-  ActionSysteme
+  ActionSysteme,
+  Bank
 };
