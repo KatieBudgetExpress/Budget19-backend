@@ -3,6 +3,7 @@ const cors = require("cors");
 const budgetsRouter = require("./routes/budgets.routes");
 const categoriesRouter = require("./routes/categories.routes");
 const transactionsRouter = require("./routes/transactions.routes");
+const usagersRouter = require("./routes/usagers.routes");
 const HttpError = require("./utils/httpError");
 
 function createApp() {
@@ -22,6 +23,7 @@ function createApp() {
   app.use("/api/budgets", budgetsRouter);
   app.use("/api/categories", categoriesRouter);
   app.use("/api/transactions", transactionsRouter);
+  app.use("/api/usagers", usagersRouter);
 
   app.use((req, res, next) => {
     next(new HttpError(404, "Resource not found"));
