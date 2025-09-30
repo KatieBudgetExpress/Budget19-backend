@@ -7,6 +7,9 @@ const posteBudgetaireRouter = require(
 const sousPosteBudgetaireRouter = require(
   "./modules/sous-postes-budgetaires/sousPosteBudgetaire.routes"
 );
+const actionsSystemeRouter = require(
+  "./modules/actions-systeme/actionSysteme.routes"
+);
 const transactionsRouter = require("./routes/transactions.routes");
 const usagersRouter = require("./routes/usagers.routes");
 const HttpError = require("./utils/httpError");
@@ -29,6 +32,7 @@ function createApp() {
   app.use("/api/postes-budgetaires", posteBudgetaireRouter);
   app.use("/api/categories", posteBudgetaireRouter);
   app.use("/api/sous-postes-budgetaires", sousPosteBudgetaireRouter);
+  app.use("/api/actions-systeme", actionsSystemeRouter);
   app.use("/api/transactions", transactionsRouter);
   app.use("/api/usagers", usagersRouter);
 
