@@ -1,8 +1,14 @@
 const { createApp } = require("./app");
-const { testConnection } = require("./config/database");
+const { sequelize, testConnection } = require("./config/database");
 
 async function startServer() {
-  await testConnection();
+  try {
+    await testConnection();
+    await sequelize.sync();
+  } catch (error) {
+    console.error("❌ Impossible de préparer la base de données :", error);
+    throw error;
+  }
 
   const app = createApp();
   const port = process.env.PORT || 3000;
@@ -11,9 +17,10 @@ async function startServer() {
     console.log(`✅ Serveur lancé sur http://localhost:${port}`);
   });
 }
-
 if (require.main === module) {
-  startServer();
+  startServer().catch(() => {
+    process.exit(1);
+  });
 }
 
 module.exports = {
