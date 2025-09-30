@@ -18,7 +18,7 @@ router.get(
 router.post(
   "/",
   body("name").isString().trim().notEmpty(),
-  body("totalAmount").optional().isDecimal(),
+  body("totalAmount").optional().isFloat({ min: 0 }),
   body("description").optional().isString(),
   validate,
   asyncHandler(budgetsController.createBudget)
@@ -28,7 +28,7 @@ router.put(
   "/:id",
   param("id").isInt().toInt(),
   body("name").optional().isString().trim().notEmpty(),
-  body("totalAmount").optional().isDecimal(),
+  body("totalAmount").optional().isFloat({ min: 0 }),
   body("description").optional().isString(),
   validate,
   asyncHandler(budgetsController.updateBudget)
