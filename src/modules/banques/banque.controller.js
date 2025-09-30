@@ -21,7 +21,13 @@ async function getBanque(req, res) {
 }
 
 async function createBanque(req, res) {
-  const { name, institution, accountNumber, balance, description } = req.body;
+  const {
+    name,
+    institution,
+    accountNumber,
+    balance = 0,
+    description
+  } = req.body;
   const bank = await Bank.create({
     name,
     institution,

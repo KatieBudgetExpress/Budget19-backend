@@ -25,7 +25,9 @@ router.post(
   "/",
   body("name").isString().trim().notEmpty(),
   body("institution").isString().trim().notEmpty(),
-  body("swiftCode").optional().isString().trim(),
+  body("accountNumber").isString().trim().notEmpty(),
+  body("balance").optional().isDecimal().toFloat(),
+  body("description").optional().isString().trim(),
   validate,
   asyncHandler(createBanque)
 );
@@ -35,7 +37,9 @@ router.put(
   param("id").isInt().toInt(),
   body("name").optional().isString().trim().notEmpty(),
   body("institution").optional().isString().trim().notEmpty(),
-  body("swiftCode").optional().isString().trim(),
+  body("accountNumber").optional().isString().trim().notEmpty(),
+  body("balance").optional().isDecimal().toFloat(),
+  body("description").optional().isString().trim(),
   validate,
   asyncHandler(updateBanque)
 );
