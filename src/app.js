@@ -12,6 +12,7 @@ const actionsSystemeRouter = require(
 );
 const transactionsRouter = require("./routes/transactions.routes");
 const usagersRouter = require("./routes/usagers.routes");
+const banquesRouter = require("./modules/banques/banque.routes"); // ✅ ajout Banque
 const HttpError = require("./utils/httpError");
 
 function createApp() {
@@ -20,6 +21,7 @@ function createApp() {
   app.use(cors());
   app.use(express.json());
 
+  // Route simple pour tester
   app.get("/", (req, res) => {
     res.json({ message: "Backend Budget19 est en marche 🚀" });
   });
@@ -28,6 +30,7 @@ function createApp() {
     res.json({ status: "ok" });
   });
 
+  // 🔗 Routes API
   app.use("/api/budgets", budgetsRouter);
   app.use("/api/postes-budgetaires", posteBudgetaireRouter);
   app.use("/api/categories", posteBudgetaireRouter);
@@ -35,17 +38,20 @@ function createApp() {
   app.use("/api/actions-systeme", actionsSystemeRouter);
   app.use("/api/transactions", transactionsRouter);
   app.use("/api/usagers", usagersRouter);
+  app.use("/api/banques", banquesRouter); // ✅ route Banque
 
+  // Gestion 404
   app.use((req, res, next) => {
     next(new HttpError(404, "Resource not found"));
   });
 
+  // Gestion erreurs
   app.use((err, req, res, next) => {
     const status = err.status || 500;
     const response = {
       error: {
-        message: err.message || "Internal Server Error"
-      }
+        message: err.message || "Internal Server Error",
+      },
     };
 
     if (err.details) {
@@ -61,6 +67,10 @@ function createApp() {
 
   return app;
 }
+
+module.exports = {
+  createApp,
+};
 
 module.exports = {
   createApp
