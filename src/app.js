@@ -1,7 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const budgetsRouter = require("./modules/budgets/budget.routes");
-const categoriesRouter = require("./routes/categories.routes");
+const posteBudgetaireRouter = require(
+  "./modules/postes-budgetaires/posteBudgetaire.routes"
+);
 const transactionsRouter = require("./routes/transactions.routes");
 const usagersRouter = require("./routes/usagers.routes");
 const HttpError = require("./utils/httpError");
@@ -21,7 +23,8 @@ function createApp() {
   });
 
   app.use("/api/budgets", budgetsRouter);
-  app.use("/api/categories", categoriesRouter);
+  app.use("/api/postes-budgetaires", posteBudgetaireRouter);
+  app.use("/api/categories", posteBudgetaireRouter);
   app.use("/api/transactions", transactionsRouter);
   app.use("/api/usagers", usagersRouter);
 

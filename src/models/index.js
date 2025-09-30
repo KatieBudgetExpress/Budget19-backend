@@ -1,9 +1,11 @@
 const Budget = require("../modules/budgets/budget.model");
-const Category = require("./Category");
+const PosteBudgetaire = require(
+  "../modules/postes-budgetaires/posteBudgetaire.model"
+);
 const Transaction = require("./Transaction");
 const Usager = require("./Usager");
 
-Budget.hasMany(Category, {
+Budget.hasMany(PosteBudgetaire, {
   foreignKey: {
     name: "budgetId",
     allowNull: false
@@ -11,7 +13,7 @@ Budget.hasMany(Category, {
   as: "categories",
   onDelete: "CASCADE"
 });
-Category.belongsTo(Budget, {
+PosteBudgetaire.belongsTo(Budget, {
   foreignKey: {
     name: "budgetId",
     allowNull: false
@@ -35,7 +37,7 @@ Transaction.belongsTo(Budget, {
   as: "budget"
 });
 
-Category.hasMany(Transaction, {
+PosteBudgetaire.hasMany(Transaction, {
   foreignKey: {
     name: "categoryId",
     allowNull: false
@@ -43,13 +45,15 @@ Category.hasMany(Transaction, {
   as: "transactions",
   onDelete: "CASCADE"
 });
-Transaction.belongsTo(Category, {
+Transaction.belongsTo(PosteBudgetaire, {
   foreignKey: {
     name: "categoryId",
     allowNull: false
   },
   as: "category"
 });
+
+const Category = PosteBudgetaire;
 
 module.exports = {
   Budget,
