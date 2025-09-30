@@ -6,7 +6,7 @@ const SousPosteBudgetaire = require(
   "../modules/sous-postes-budgetaires/sousPosteBudgetaire.model"
 );
 const Transaction = require("./Transaction");
-const Usager = require("./Usager");
+const Profil = require("../modules/profils/profil.model");
 const ActionSysteme = require("../modules/actions-systeme/actionSysteme.model");
 const Bank = require("../modules/banques/banque.model");
 const BanqueCompte = require("../modules/banque-comptes/banqueCompte.model");
@@ -101,7 +101,7 @@ module.exports = {
   SousPosteBudgetaire,
   SubCategory,
   Transaction,
-  Usager,
+  Profil,
   ActionSysteme,
   Bank,
   Banque,

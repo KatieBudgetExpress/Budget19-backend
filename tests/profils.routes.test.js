@@ -7,7 +7,7 @@ const request = require("supertest");
 
 const { createApp } = require("../src/app");
 const { sequelize } = require("../src/config/database");
-const { Usager } = require("../src/models");
+const { Profil } = require("../src/models");
 
 const app = createApp();
 
@@ -19,9 +19,9 @@ test.after(async () => {
   await sequelize.close();
 });
 
-test("POST /api/usagers crée un usager", async () => {
+test("POST /api/profils crée un profil", async () => {
   const response = await request(app)
-    .post("/api/usagers")
+    .post("/api/profils")
     .send({
       firstName: "Jean",
       lastName: "Dupont",
@@ -33,15 +33,15 @@ test("POST /api/usagers crée un usager", async () => {
   assert.equal(response.body.data.email, "jean.dupont@example.com");
 });
 
-test("POST /api/usagers rejette les doublons d'email", async () => {
-  await Usager.create({
+test("POST /api/profils rejette les doublons d'email", async () => {
+  await Profil.create({
     firstName: "Marie",
     lastName: "Durand",
     email: "marie@example.com"
   });
 
   const response = await request(app)
-    .post("/api/usagers")
+    .post("/api/profils")
     .send({
       firstName: "Marie",
       lastName: "Durand",
