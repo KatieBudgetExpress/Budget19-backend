@@ -46,6 +46,10 @@ async function createTransaction(req, res) {
     throw new HttpError(400, "Category does not belong to provided budget");
   }
 
+  if (category.type !== type) {
+    throw new HttpError(400, "Transaction type does not match category type");
+  }
+
   const transaction = await Transaction.create({
     description,
     amount,
@@ -78,22 +82,36 @@ async function updateTransaction(req, res) {
   }
 
   let targetCategoryId = transaction.categoryId;
+  let targetCategory = null;
   if (categoryId !== undefined && categoryId !== transaction.categoryId) {
     const category = await Category.findByPk(categoryId);
     if (!category) {
       throw new HttpError(404, "Category not found for provided categoryId");
     }
     targetCategoryId = category.id;
-    if (category.budgetId !== targetBudgetId) {
-      throw new HttpError(400, "Category does not belong to provided budget");
-    }
+    targetCategory = category;
   }
 
-  if (budgetId !== undefined && categoryId === undefined) {
-    const category = await Category.findByPk(targetCategoryId);
-    if (category && category.budgetId !== budgetId) {
-      throw new HttpError(400, "Existing category does not belong to provided budget");
-    }
+  if (!targetCategory) {
+    targetCategory = await Category.findByPk(targetCategoryId);
+  }
+
+  if (!targetCategory) {
+    throw new HttpError(404, "Category not found for provided categoryId");
+  }
+
+  const belongsToBudget = targetCategory.budgetId === targetBudgetId;
+  if (!belongsToBudget) {
+    const message =
+      categoryId !== undefined && categoryId !== transaction.categoryId
+        ? "Category does not belong to provided budget"
+        : "Existing category does not belong to provided budget";
+    throw new HttpError(400, message);
+  }
+
+  const targetType = type !== undefined ? type : transaction.type;
+  if (targetCategory.type !== targetType) {
+    throw new HttpError(400, "Transaction type does not match category type");
   }
 
   const updateData = {};

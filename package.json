@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test tests"
   },
   "keywords": [],
   "author": "",
@@ -15,5 +15,8 @@
     "express-validator": "^7.2.1",
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "supertest": "^6.3.4"
   }
 }
