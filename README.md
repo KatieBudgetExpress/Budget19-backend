@@ -1,21 +1,23 @@
 # Budget19 Backend
 
-Ce dépôt contient une petite API Express écrite en JavaScript pour servir de backend au projet Budget19. Ce document explique la structure du code et donne des points de repère pour démarrer lorsqu'on débute avec ce type d'application.
+Ce dépôt contient une API Express écrite en JavaScript pour servir de backend au projet Budget19. Ce document explique la nouvelle structure du code et donne des points de repère pour démarrer lorsqu'on débute avec ce type d'application.
 
 ## Structure générale
 
-- **`index.js`** : point d'entrée de l'application. Il configure Express, active les middlewares et lance le serveur HTTP.
+- **`index.js`** : point d'entrée minimal qui lance le serveur défini dans `src/server.js`.
+- **`src/app.js`** : crée et configure l'application Express (middlewares, routes communes, etc.).
+- **`src/server.js`** : orchestre le démarrage du serveur HTTP après avoir vérifié la connexion à la base de données.
+- **`src/config/database.js`** : initialise Sequelize et expose l'instance de connexion à SQLite.
 - **`database.sqlite`** : fichier de base de données SQLite utilisé par Sequelize pour stocker les données. Il est généré automatiquement par SQLite si besoin.
 - **`package.json`** et **`package-lock.json`** : décrivent le projet Node.js, la liste des dépendances et les scripts disponibles.
 - **`node_modules/`** : dossier automatiquement généré qui contient le code des dépendances installées. Il n'est généralement pas versionné dans Git.
 
-## Fonctionnement d'`index.js`
+## Fonctionnement de l'API
 
 1. **Chargement des bibliothèques** : Express pour créer le serveur HTTP, Cors pour accepter les requêtes provenant d'autres domaines, et Sequelize pour gérer la base de données SQLite.
-2. **Initialisation d'Express** : l'application est créée, CORS est activé et le serveur sait lire du JSON en entrée.
-3. **Connexion à la base SQLite** : Sequelize ouvre le fichier `database.sqlite` et vérifie que la connexion fonctionne.
-4. **Définition d'une route de test** : la route `GET /` renvoie un message confirmant que l'API fonctionne.
-5. **Lancement du serveur** : l'application écoute sur le port 3000 et affiche un message dans la console.
+2. **Création de l'application** : `createApp` configure Express, active CORS, l'analyse du JSON et expose des routes de base comme `/` et `/health`.
+3. **Connexion à la base SQLite** : `testConnection` valide l'accès au fichier `database.sqlite` via Sequelize avant de lancer le serveur.
+4. **Démarrage du serveur** : `startServer` lance l'application sur le port défini dans la variable d'environnement `PORT` (3000 par défaut) et affiche un message dans la console.
 
 ## Dépendances principales
 
