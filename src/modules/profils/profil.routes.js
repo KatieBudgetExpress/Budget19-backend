@@ -1,18 +1,18 @@
 const { Router } = require("express");
 const { body, param } = require("express-validator");
-const usagersController = require("../controllers/usagers.controller");
-const asyncHandler = require("../utils/asyncHandler");
-const validate = require("../middlewares/validate");
+const profilController = require("./profil.controller");
+const asyncHandler = require("../../utils/asyncHandler");
+const validate = require("../../middlewares/validate");
 
 const router = Router();
 
-router.get("/", asyncHandler(usagersController.listUsagers));
+router.get("/", asyncHandler(profilController.listProfils));
 
 router.get(
   "/:id",
   param("id").isInt().toInt(),
   validate,
-  asyncHandler(usagersController.getUsager)
+  asyncHandler(profilController.getProfil)
 );
 
 router.post(
@@ -21,7 +21,7 @@ router.post(
   body("lastName").isString().trim().notEmpty(),
   body("email").isEmail().normalizeEmail(),
   validate,
-  asyncHandler(usagersController.createUsager)
+  asyncHandler(profilController.createProfil)
 );
 
 router.put(
@@ -31,14 +31,14 @@ router.put(
   body("lastName").optional().isString().trim().notEmpty(),
   body("email").optional().isEmail().normalizeEmail(),
   validate,
-  asyncHandler(usagersController.updateUsager)
+  asyncHandler(profilController.updateProfil)
 );
 
 router.delete(
   "/:id",
   param("id").isInt().toInt(),
   validate,
-  asyncHandler(usagersController.deleteUsager)
+  asyncHandler(profilController.deleteProfil)
 );
 
 module.exports = router;
