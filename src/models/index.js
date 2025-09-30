@@ -1,6 +1,7 @@
 const Budget = require("./Budget");
 const Category = require("./Category");
 const Transaction = require("./Transaction");
+const Usager = require("./Usager");
 
 Budget.hasMany(Category, {
   foreignKey: {
@@ -53,5 +54,6 @@ Transaction.belongsTo(Category, {
 module.exports = {
   Budget,
   Category,
-  Transaction
+  Transaction,
+  Usager
 };
