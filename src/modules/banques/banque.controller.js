@@ -1,7 +1,7 @@
 const { Bank } = require("../../models");
 const HttpError = require("../../utils/httpError");
 
-async function listBanks(req, res) {
+async function listBanques(req, res) {
   const banks = await Bank.findAll({
     order: [["createdAt", "DESC"]]
   });
@@ -9,7 +9,7 @@ async function listBanks(req, res) {
   res.json({ data: banks });
 }
 
-async function getBank(req, res) {
+async function getBanque(req, res) {
   const { id } = req.params;
   const bank = await Bank.findByPk(id);
 
@@ -20,7 +20,7 @@ async function getBank(req, res) {
   res.json({ data: bank });
 }
 
-async function createBank(req, res) {
+async function createBanque(req, res) {
   const { name, institution, accountNumber, balance, description } = req.body;
   const bank = await Bank.create({
     name,
@@ -33,7 +33,7 @@ async function createBank(req, res) {
   res.status(201).json({ data: bank });
 }
 
-async function updateBank(req, res) {
+async function updateBanque(req, res) {
   const { id } = req.params;
   const bank = await Bank.findByPk(id);
 
@@ -55,7 +55,7 @@ async function updateBank(req, res) {
   res.json({ data: bank });
 }
 
-async function deleteBank(req, res) {
+async function deleteBanque(req, res) {
   const { id } = req.params;
   const bank = await Bank.findByPk(id);
 
@@ -69,9 +69,9 @@ async function deleteBank(req, res) {
 }
 
 module.exports = {
-  listBanks,
-  getBank,
-  createBank,
-  updateBank,
-  deleteBank
+  listBanques,
+  getBanque,
+  createBanque,
+  updateBanque,
+  deleteBanque
 };
