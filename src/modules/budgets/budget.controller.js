@@ -1,5 +1,5 @@
-const { Budget, Category, Transaction } = require("../models");
-const HttpError = require("../utils/httpError");
+const { Budget, Category, Transaction } = require("../../models");
+const HttpError = require("../../utils/httpError");
 
 async function listBudgets(req, res) {
   const budgets = await Budget.findAll({

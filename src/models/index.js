@@ -1,4 +1,4 @@
-const Budget = require("./Budget");
+const Budget = require("../modules/budgets/budget.model");
 const Category = require("./Category");
 const Transaction = require("./Transaction");
 const Usager = require("./Usager");
