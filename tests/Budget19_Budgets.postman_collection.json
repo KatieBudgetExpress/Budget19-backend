@@ -1,0 +1,137 @@
+{
+  "info": {
+    "_postman_id": "1c95f6f7-0ccb-4fd2-8b31-7f2fa34397c1",
+    "name": "Budget19 Budgets API",
+    "description": "Collection Postman pour tester les endpoints Budgets du backend Budget19.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Budgets",
+      "description": "Opérations CRUD pour les budgets.",
+      "item": [
+        {
+          "name": "GET /api/budgets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/budgets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "budgets"
+              ]
+            },
+            "description": "Récupère la liste complète des budgets."
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/budgets",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Budget familial\",\n  \"annee\": 2025\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/budgets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "budgets"
+              ]
+            },
+            "description": "Crée un nouveau budget."
+          },
+          "response": []
+        },
+        {
+          "name": "PUT /api/budgets/:id",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Budget mis à jour\",\n  \"annee\": 2025\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/budgets/{{budgetId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "budgets",
+                "{{budgetId}}"
+              ]
+            },
+            "description": "Met à jour un budget existant identifié par son ID."
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE /api/budgets/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/budgets/{{budgetId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "budgets",
+                "{{budgetId}}"
+              ]
+            },
+            "description": "Supprime un budget en fonction de son ID."
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string",
+      "description": "URL de base du backend Budget19."
+    },
+    {
+      "key": "budgetId",
+      "value": "",
+      "type": "string",
+      "description": "Identifiant du budget à mettre à jour ou supprimer."
+    }
+  ]
+}
