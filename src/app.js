@@ -1,23 +1,21 @@
 const express = require("express");
 const cors = require("cors");
+
+// Import des routes
 const budgetsRouter = require("./modules/budgets/budget.routes");
-const posteBudgetaireRouter = require(
-  "./modules/postes-budgetaires/posteBudgetaire.routes"
-);
-const sousPosteBudgetaireRouter = require(
-  "./modules/sous-postes-budgetaires/sousPosteBudgetaire.routes"
-);
-const actionsSystemeRouter = require(
-  "./modules/actions-systeme/actionSysteme.routes"
-);
+const posteBudgetaireRouter = require("./modules/postes-budgetaires/posteBudgetaire.routes");
+const sousPosteBudgetaireRouter = require("./modules/sous-postes-budgetaires/sousPosteBudgetaire.routes");
+const actionsSystemeRouter = require("./modules/actions-systeme/actionSysteme.routes");
 const reglesRouter = require("./modules/regles/regle.routes");
 const transactionsRouter = require("./routes/transactions.routes");
 const profilsRouter = require("./modules/profils/profil.routes");
-const banquesRouter = require("./modules/banques/banque.routes"); // ✅ ajout Banque
-const banqueComptesRouter = require(
-  "./modules/banque-comptes/banqueCompte.routes"
-);
+const banquesRouter = require("./modules/banques/banque.routes");
+const banqueComptesRouter = require("./modules/banque-comptes/banqueCompte.routes");
 const importFilesRouter = require("./routes/importFile.routes");
+
+// ✅ Ajout Notifications
+const notificationsRouter = require("./modules/notifications/notification.routes");
+
 const HttpError = require("./utils/httpError");
 
 function createApp() {
@@ -44,9 +42,12 @@ function createApp() {
   app.use("/api/regles", reglesRouter);
   app.use("/api/transactions", transactionsRouter);
   app.use("/api/profils", profilsRouter);
-  app.use("/api/banques", banquesRouter); // ✅ route Banque
+  app.use("/api/banques", banquesRouter);
   app.use("/api/banque-comptes", banqueComptesRouter);
   app.use("/api/import-files", importFilesRouter);
+
+  // ✅ Nouvelle route Notifications
+  app.use("/api/notifications", notificationsRouter);
 
   // Gestion 404
   app.use((req, res, next) => {
@@ -78,8 +79,4 @@ function createApp() {
 
 module.exports = {
   createApp,
-};
-
-module.exports = {
-  createApp
 };
