@@ -1,6 +1,6 @@
-// src/modules/notifications/notification.model.js
+// src/models/notification.model.js
 const { DataTypes } = require("sequelize");
-const { sequelize } = require("../../config/database");
+const { sequelize } = require("../config/database");
 
 const Notification = sequelize.define("Notification", {
   message: {
@@ -22,3 +22,4 @@ const Notification = sequelize.define("Notification", {
 });
 
 module.exports = Notification;
+
